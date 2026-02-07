@@ -1,0 +1,27 @@
+# Xcode
+*.xcodeproj/xcuserdata/
+*.xcworkspace/xcuserdata/
+DerivedData/
+*.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/
+build/
+
+# macOS
+.DS_Store
+*.swp
+*~
+
+# SPM
+.build/
+Packages/
+
+# IDE
+.idea/
+.vscode/
+
+# Marketing assets
+gumroad-*.html
+gumroad-*.png
+*.dmg
+
+# Build staging
+dmg-staging/

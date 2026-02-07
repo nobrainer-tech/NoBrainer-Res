@@ -1,0 +1,41 @@
+name: NoBrainer-Res
+options:
+  bundleIdPrefix: com.nobrainer
+  deploymentTarget:
+    macOS: "14.0"
+  xcodeVersion: "16.0"
+  generateEmptyDirectories: true
+  groupSortPosition: top
+
+packages:
+  KeyboardShortcuts:
+    url: https://github.com/sindresorhus/KeyboardShortcuts
+    from: "2.0.0"
+
+targets:
+  NoBrainer-Res:
+    type: application
+    platform: macOS
+    sources:
+      - NoBrainer-Res
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.nobrainer.res
+        PRODUCT_NAME: NoBrainer Res
+        MARKETING_VERSION: "1.0.0"
+        CURRENT_PROJECT_VERSION: "1"
+        INFOPLIST_FILE: NoBrainer-Res/Info.plist
+        CODE_SIGN_ENTITLEMENTS: NoBrainer-Res/NoBrainerRes.entitlements
+        SWIFT_VERSION: "6.0"
+        MACOSX_DEPLOYMENT_TARGET: "14.0"
+        SWIFT_STRICT_CONCURRENCY: complete
+        DEAD_CODE_STRIPPING: YES
+        CODE_SIGN_IDENTITY: "-"
+        CODE_SIGN_STYLE: Automatic
+        COMBINE_HIDPI_IMAGES: YES
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        GENERATE_INFOPLIST_FILE: NO
+        LS_BUNDLE_IDENTIFIER: com.nobrainer.res
+    dependencies:
+      - package: KeyboardShortcuts
+      - sdk: IOKit.framework
