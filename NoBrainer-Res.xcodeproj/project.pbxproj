@@ -12,11 +12,13 @@
 		3A7B8231CAE498E159BC34E8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA080021EC5BF37292EBF7BC /* Constants.swift */; };
 		43A4832827C6B6FF3253A281 /* AboutSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1651B36913553C52F4631CE /* AboutSettingsView.swift */; };
 		43B668239AAFDCB6E2127428 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = 57615A85CA755C84385CC691 /* KeyboardShortcuts */; };
+		5001C919B50496117523DFC0 /* DisplayPlacerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EB8B8400EBCCE35835AFC1 /* DisplayPlacerManager.swift */; };
 		51FEB91F0FB34816758E65E6 /* ShortcutsSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9916A160E36D4757BCFA0C57 /* ShortcutsSettingsView.swift */; };
 		599C38640A558FD68CA65C88 /* DisplayMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F23167C5AF9E8735E7F053 /* DisplayMode.swift */; };
 		5CE7CF8E98216F2A7EF4C986 /* KeyboardShortcutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B28B79209D534EFDE2B57F /* KeyboardShortcutManager.swift */; };
 		5ED2D284ECA3D5676C3ECBDA /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8501830F696E9B1808F9A6AC /* Profile.swift */; };
 		679E073A6168676BF8E4A41D /* Display.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3B1828AE4605945674C306 /* Display.swift */; };
+		7C76CCDD82BB52D361779EB8 /* DisplayPlacerSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1343F313F2E7F388C3441319 /* DisplayPlacerSettingsView.swift */; };
 		9BD8C5BB5A8A81B9529BFBF1 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E509F3178EB39EACFA478034 /* SettingsView.swift */; };
 		A95D1B90992FBA45E8395321 /* DisplayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F18612918B1C349257F83C /* DisplayManager.swift */; };
 		B9FF17E7A9A97C7A8579FD8C /* NoBrainerResApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6052ED3320BA9411835A24 /* NoBrainerResApp.swift */; };
@@ -35,6 +37,7 @@
 		06239CB24222C8B5B092314B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0DC678FE380FBAB993C139D8 /* DisplaySectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplaySectionView.swift; sourceTree = "<group>"; };
 		12B28B79209D534EFDE2B57F /* KeyboardShortcutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardShortcutManager.swift; sourceTree = "<group>"; };
+		1343F313F2E7F388C3441319 /* DisplayPlacerSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayPlacerSettingsView.swift; sourceTree = "<group>"; };
 		20F23167C5AF9E8735E7F053 /* DisplayMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayMode.swift; sourceTree = "<group>"; };
 		44C31A840663666CF41C9858 /* NoBrainer-Res.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NoBrainer-Res.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A492A2362A0290C0DE1D902 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -45,6 +48,7 @@
 		7C6A0E4294320AE265C93C75 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8501830F696E9B1808F9A6AC /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		9916A160E36D4757BCFA0C57 /* ShortcutsSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutsSettingsView.swift; sourceTree = "<group>"; };
+		A4EB8B8400EBCCE35835AFC1 /* DisplayPlacerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayPlacerManager.swift; sourceTree = "<group>"; };
 		AA080021EC5BF37292EBF7BC /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D8F18FA1F1CAE8AC0D9493E4 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		E1651B36913553C52F4631CE /* AboutSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutSettingsView.swift; sourceTree = "<group>"; };
@@ -71,6 +75,7 @@
 			isa = PBXGroup;
 			children = (
 				E1651B36913553C52F4631CE /* AboutSettingsView.swift */,
+				1343F313F2E7F388C3441319 /* DisplayPlacerSettingsView.swift */,
 				057A87358789EBD61FF1C06E /* GeneralSettingsView.swift */,
 				E509F3178EB39EACFA478034 /* SettingsView.swift */,
 				9916A160E36D4757BCFA0C57 /* ShortcutsSettingsView.swift */,
@@ -110,13 +115,6 @@
 			path = App;
 			sourceTree = "<group>";
 		};
-		8616260F39B97BEB7321C7C9 /* Licensing */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Licensing;
-			sourceTree = "<group>";
-		};
 		9A5983D9AA4E0C28A191C732 /* MenuBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -131,7 +129,6 @@
 		9E1F7E23BAF00F92CA1628E3 /* Features */ = {
 			isa = PBXGroup;
 			children = (
-				8616260F39B97BEB7321C7C9 /* Licensing */,
 				9A5983D9AA4E0C28A191C732 /* MenuBar */,
 				05DEB3ED48DF8A46F810B6FA /* Settings */,
 			);
@@ -177,6 +174,7 @@
 				7C3B1828AE4605945674C306 /* Display.swift */,
 				F2F18612918B1C349257F83C /* DisplayManager.swift */,
 				20F23167C5AF9E8735E7F053 /* DisplayMode.swift */,
+				A4EB8B8400EBCCE35835AFC1 /* DisplayPlacerManager.swift */,
 				8501830F696E9B1808F9A6AC /* Profile.swift */,
 				764FD9EB26B2F00CDDE77894 /* ProfileManager.swift */,
 			);
@@ -265,6 +263,8 @@
 				A95D1B90992FBA45E8395321 /* DisplayManager.swift in Sources */,
 				599C38640A558FD68CA65C88 /* DisplayMode.swift in Sources */,
 				D45A818858BCDB663EB476AD /* DisplayModeRowView.swift in Sources */,
+				5001C919B50496117523DFC0 /* DisplayPlacerManager.swift in Sources */,
+				7C76CCDD82BB52D361779EB8 /* DisplayPlacerSettingsView.swift in Sources */,
 				F47BA1A7E18CB9760F89D7A0 /* DisplaySectionView.swift in Sources */,
 				DE58652C942AD9139D3D7553 /* GeneralSettingsView.swift in Sources */,
 				5CE7CF8E98216F2A7EF4C986 /* KeyboardShortcutManager.swift in Sources */,

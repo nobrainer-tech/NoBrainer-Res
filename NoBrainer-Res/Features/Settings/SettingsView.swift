@@ -13,11 +13,16 @@ struct SettingsView: View {
                     Label("Shortcuts", systemImage: "keyboard")
                 }
 
+            DisplayPlacerSettingsView()
+                .tabItem {
+                    Label("Advanced", systemImage: "rectangle.badge.plus")
+                }
+
             AboutSettingsView()
                 .tabItem {
                     Label("About", systemImage: "info.circle")
                 }
         }
-        .frame(width: 420, height: 340)
+        .frame(width: 500, height: 450)
     }
 }
