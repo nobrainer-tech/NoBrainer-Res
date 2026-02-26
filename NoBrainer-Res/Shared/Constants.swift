@@ -8,5 +8,6 @@ enum Constants {
 
     enum UserDefaultsKeys {
         static let showHiDPIOnly = "showHiDPIOnly"
+        static let virtualDisplayConfigs = "virtualDisplayConfigs"
     }
 }

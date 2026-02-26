@@ -29,6 +29,11 @@
 		EDCC74DD1A459AC542E3FC6E /* ProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764FD9EB26B2F00CDDE77894 /* ProfileManager.swift */; };
 		F47BA1A7E18CB9760F89D7A0 /* DisplaySectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC678FE380FBAB993C139D8 /* DisplaySectionView.swift */; };
 		F7BC87C9346F1C337AEACAC0 /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E944FC2F706DB13CC77F05F /* MenuBarView.swift */; };
+		F4A65D7DF4C44B219CECD327 /* VirtualDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C50B39192184D888891C32B /* VirtualDisplay.swift */; };
+		E4094BA77DC04E4783CEEC47 /* VirtualDisplayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85A961E9B6C409AA7C745A2 /* VirtualDisplayManager.swift */; };
+		F21B1406B2B344DE9279B91D /* VirtualDisplaySectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367AA546F8A0471783D4D408 /* VirtualDisplaySectionView.swift */; };
+		A9D19BAD03924FEABA6F71F6 /* VirtualDisplaySettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC919A4812C64AEFBAB5C1A0 /* VirtualDisplaySettingsView.swift */; };
+		86A6D3DD6B9C4E748E29EBEC /* DaemonManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159AB52972C14C7099F2BD03 /* DaemonManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +61,13 @@
 		EE6052ED3320BA9411835A24 /* NoBrainerResApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoBrainerResApp.swift; sourceTree = "<group>"; };
 		F2F18612918B1C349257F83C /* DisplayManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayManager.swift; sourceTree = "<group>"; };
 		FF7C3990D8A42C6B76530307 /* NoBrainerRes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NoBrainerRes.entitlements; sourceTree = "<group>"; };
+		3C50B39192184D888891C32B /* VirtualDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualDisplay.swift; sourceTree = "<group>"; };
+		159AB52972C14C7099F2BD03 /* DaemonManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaemonManager.swift; sourceTree = "<group>"; };
+		930389BC6D1742F1BF41F27B /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		8422907929404D50B365BB0D /* DisplayCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayCreator.swift; sourceTree = "<group>"; };
+		D85A961E9B6C409AA7C745A2 /* VirtualDisplayManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualDisplayManager.swift; sourceTree = "<group>"; };
+		367AA546F8A0471783D4D408 /* VirtualDisplaySectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualDisplaySectionView.swift; sourceTree = "<group>"; };
+		FC919A4812C64AEFBAB5C1A0 /* VirtualDisplaySettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualDisplaySettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +91,7 @@
 				057A87358789EBD61FF1C06E /* GeneralSettingsView.swift */,
 				E509F3178EB39EACFA478034 /* SettingsView.swift */,
 				9916A160E36D4757BCFA0C57 /* ShortcutsSettingsView.swift */,
+				FC919A4812C64AEFBAB5C1A0 /* VirtualDisplaySettingsView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -87,9 +100,19 @@
 			isa = PBXGroup;
 			children = (
 				5D16F770DCB850F544ED3659 /* NoBrainer-Res */,
+				A2C09A278B294B199A046E14 /* VirtualDisplayKeeper */,
 				A4CC88513C002606C2C9CF78 /* Frameworks */,
 				9FA6DAB81D0F79BBCDEFD676 /* Products */,
 			);
+			sourceTree = "<group>";
+		};
+		A2C09A278B294B199A046E14 /* VirtualDisplayKeeper */ = {
+			isa = PBXGroup;
+			children = (
+				930389BC6D1742F1BF41F27B /* main.swift */,
+				8422907929404D50B365BB0D /* DisplayCreator.swift */,
+			);
+			path = VirtualDisplayKeeper;
 			sourceTree = "<group>";
 		};
 		5D16F770DCB850F544ED3659 /* NoBrainer-Res */ = {
@@ -122,6 +145,7 @@
 				0DC678FE380FBAB993C139D8 /* DisplaySectionView.swift */,
 				6E944FC2F706DB13CC77F05F /* MenuBarView.swift */,
 				78ABBCB41A6E695DAB453DC2 /* QuickActionsView.swift */,
+				367AA546F8A0471783D4D408 /* VirtualDisplaySectionView.swift */,
 			);
 			path = MenuBar;
 			sourceTree = "<group>";
@@ -177,6 +201,9 @@
 				A4EB8B8400EBCCE35835AFC1 /* DisplayPlacerManager.swift */,
 				8501830F696E9B1808F9A6AC /* Profile.swift */,
 				764FD9EB26B2F00CDDE77894 /* ProfileManager.swift */,
+				159AB52972C14C7099F2BD03 /* DaemonManager.swift */,
+				3C50B39192184D888891C32B /* VirtualDisplay.swift */,
+				D85A961E9B6C409AA7C745A2 /* VirtualDisplayManager.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -188,6 +215,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EE2BA2E550884C4E248F0683 /* Build configuration list for PBXNativeTarget "NoBrainer-Res" */;
 			buildPhases = (
+				C7AE052335AE4E35BA9D6679 /* Compile VirtualDisplayKeeper */,
 				19CB7659716F57A03B7B34AB /* Sources */,
 				4C8C686BB309AF4BD2E75631 /* Resources */,
 				93C6C3E93D367B8B0B6128CE /* Frameworks */,
@@ -251,6 +279,44 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		DCB436E1267B4C8E923EE288 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+			);
+			name = "Embed VirtualDisplayKeeper";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		C7AE052335AE4E35BA9D6679 /* Compile VirtualDisplayKeeper */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/VirtualDisplayKeeper/main.swift",
+				"$(SRCROOT)/VirtualDisplayKeeper/DisplayCreator.swift",
+			);
+			name = "Compile VirtualDisplayKeeper";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(CONTENTS_FOLDER_PATH)/MacOS/VirtualDisplayKeeper",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\nOUT=\"${BUILT_PRODUCTS_DIR}/${CONTENTS_FOLDER_PATH}/MacOS/VirtualDisplayKeeper\"\nswiftc -O \\\n  \"${SRCROOT}/VirtualDisplayKeeper/DisplayCreator.swift\" \\\n  \"${SRCROOT}/VirtualDisplayKeeper/main.swift\" \\\n  -framework Foundation \\\n  -framework AppKit \\\n  -framework CoreGraphics \\\n  -o \"${OUT}\"\necho \"[Build] VirtualDisplayKeeper compiled to ${OUT}\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		19CB7659716F57A03B7B34AB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -275,6 +341,11 @@
 				201A1B47A136ADF4E47879EC /* QuickActionsView.swift in Sources */,
 				9BD8C5BB5A8A81B9529BFBF1 /* SettingsView.swift in Sources */,
 				51FEB91F0FB34816758E65E6 /* ShortcutsSettingsView.swift in Sources */,
+				86A6D3DD6B9C4E748E29EBEC /* DaemonManager.swift in Sources */,
+				F4A65D7DF4C44B219CECD327 /* VirtualDisplay.swift in Sources */,
+				E4094BA77DC04E4783CEEC47 /* VirtualDisplayManager.swift in Sources */,
+				F21B1406B2B344DE9279B91D /* VirtualDisplaySectionView.swift in Sources */,
+				A9D19BAD03924FEABA6F71F6 /* VirtualDisplaySettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

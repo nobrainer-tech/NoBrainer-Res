@@ -3,6 +3,7 @@ import SwiftUI
 struct MenuBarView: View {
     @Environment(DisplayManager.self) private var displayManager
     @Environment(ProfileManager.self) private var profileManager
+    @Environment(VirtualDisplayManager.self) private var virtualDisplayManager
     @State private var showNewProfileSheet = false
     @State private var newProfileName = ""
 
@@ -16,6 +17,10 @@ struct MenuBarView: View {
                         DisplaySectionView(display: display) { mode in
                             _ = displayManager.switchMode(displayID: display.id, mode: mode)
                         }
+                    }
+
+                    if !virtualDisplayManager.virtualDisplays.isEmpty {
+                        VirtualDisplaySectionView()
                     }
                 }
                 .padding(.vertical, 4)

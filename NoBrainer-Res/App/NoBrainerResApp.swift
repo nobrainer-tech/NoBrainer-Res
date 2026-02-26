@@ -5,12 +5,14 @@ struct NoBrainerResApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     @State private var displayManager = DisplayManager()
     @State private var profileManager = ProfileManager()
+    @State private var virtualDisplayManager = VirtualDisplayManager()
 
     var body: some Scene {
         MenuBarExtra {
             MenuBarView()
                 .environment(displayManager)
                 .environment(profileManager)
+                .environment(virtualDisplayManager)
         } label: {
             Image(systemName: "display")
         }
@@ -20,6 +22,7 @@ struct NoBrainerResApp: App {
             SettingsView()
                 .environment(displayManager)
                 .environment(profileManager)
+                .environment(virtualDisplayManager)
         }
     }
 }
