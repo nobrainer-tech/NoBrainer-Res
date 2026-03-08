@@ -15,6 +15,7 @@ final class ProfileManager {
 
     init() {
         load()
+        seedDefaultProfileIfNeeded()
     }
 
     func save(profile: Profile) {
@@ -32,16 +33,29 @@ final class ProfileManager {
     }
 
     func createFromCurrentState(name: String, displayManager: DisplayManager) -> Profile {
-        let configs = displayManager.displays.compactMap { display -> Profile.DisplayConfiguration? in
-            guard let current = display.currentMode else { return nil }
-            return Profile.DisplayConfiguration(
-                displayID: display.id,
-                modeID: current.id,
+        var configs: [Profile.DisplayConfiguration] = []
+
+        if let builtIn = displayManager.displays.first(where: { $0.isBuiltIn }),
+           let current = builtIn.currentMode {
+            configs.append(Profile.DisplayConfiguration(
+                isBuiltIn: true,
                 width: current.width,
                 height: current.height,
                 isHiDPI: current.isHiDPI,
                 refreshRate: current.refreshRate
-            )
+            ))
+        }
+
+        // Capture only one external config - apply() will apply it to all external displays
+        if let external = displayManager.displays.first(where: { !$0.isBuiltIn }),
+           let current = external.currentMode {
+            configs.append(Profile.DisplayConfiguration(
+                isBuiltIn: false,
+                width: current.width,
+                height: current.height,
+                isHiDPI: current.isHiDPI,
+                refreshRate: current.refreshRate
+            ))
         }
 
         let profile = Profile(name: name, displayConfigurations: configs)
@@ -51,22 +65,37 @@ final class ProfileManager {
 
     func apply(profile: Profile, using displayManager: DisplayManager) -> Bool {
         var allSucceeded = true
-        for config in profile.displayConfigurations {
-            let mode = DisplayMode(
-                id: config.modeID,
-                width: config.width,
-                height: config.height,
-                refreshRate: config.refreshRate,
-                isHiDPI: config.isHiDPI,
-                bitDepth: 32,
-                isNative: false,
-                isCurrent: false
-            )
 
-            if !displayManager.switchMode(displayID: config.displayID, mode: mode) {
-                allSucceeded = false
+        for config in profile.displayConfigurations {
+            if config.isBuiltIn {
+                guard let display = displayManager.displays.first(where: { $0.isBuiltIn }) else {
+                    allSucceeded = false
+                    continue
+                }
+                if !displayManager.switchModeByResolution(
+                    displayID: display.id,
+                    width: config.width,
+                    height: config.height,
+                    isHiDPI: config.isHiDPI,
+                    refreshRate: config.refreshRate
+                ) {
+                    allSucceeded = false
+                }
+            } else {
+                for display in displayManager.displays where !display.isBuiltIn {
+                    if !displayManager.switchModeByResolution(
+                        displayID: display.id,
+                        width: config.width,
+                        height: config.height,
+                        isHiDPI: config.isHiDPI,
+                        refreshRate: config.refreshRate
+                    ) {
+                        allSucceeded = false
+                    }
+                }
             }
         }
+
         return allSucceeded
     }
 
@@ -89,5 +118,22 @@ final class ProfileManager {
         } catch {
             // Silent fail - profiles are non-critical
         }
+    }
+
+    private func seedDefaultProfileIfNeeded() {
+        guard profiles.isEmpty else { return }
+
+        // Sample profile for macOS + Viture XR glasses setup.
+        // autoApply is disabled so it does not silently change modes on other hardware.
+        let defaultProfile = Profile(
+            name: "macOS+Viture",
+            displayConfigurations: [
+                Profile.DisplayConfiguration(isBuiltIn: true, width: 3024, height: 1964, isHiDPI: true, refreshRate: 120),
+                Profile.DisplayConfiguration(isBuiltIn: false, width: 2560, height: 1600, isHiDPI: true, refreshRate: 60)
+            ],
+            autoApply: false
+        )
+
+        save(profile: defaultProfile)
     }
 }

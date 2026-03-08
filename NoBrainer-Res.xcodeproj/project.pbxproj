@@ -34,6 +34,7 @@
 		F21B1406B2B344DE9279B91D /* VirtualDisplaySectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367AA546F8A0471783D4D408 /* VirtualDisplaySectionView.swift */; };
 		A9D19BAD03924FEABA6F71F6 /* VirtualDisplaySettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC919A4812C64AEFBAB5C1A0 /* VirtualDisplaySettingsView.swift */; };
 		86A6D3DD6B9C4E748E29EBEC /* DaemonManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159AB52972C14C7099F2BD03 /* DaemonManager.swift */; };
+		A1B2C3D4E5F6A7B8C9D0E1F2 /* ProfileEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C3D4E5F6A7B8C9D0E1F2A3 /* ProfileEditorView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 		44C31A840663666CF41C9858 /* NoBrainer-Res.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NoBrainer-Res.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A492A2362A0290C0DE1D902 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6E944FC2F706DB13CC77F05F /* MenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarView.swift; sourceTree = "<group>"; };
+		B2C3D4E5F6A7B8C9D0E1F2A3 /* ProfileEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditorView.swift; sourceTree = "<group>"; };
 		764FD9EB26B2F00CDDE77894 /* ProfileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileManager.swift; sourceTree = "<group>"; };
 		78ABBCB41A6E695DAB453DC2 /* QuickActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickActionsView.swift; sourceTree = "<group>"; };
 		7C3B1828AE4605945674C306 /* Display.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Display.swift; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				001864C1A2AB0AADB9B0D93B /* DisplayModeRowView.swift */,
 				0DC678FE380FBAB993C139D8 /* DisplaySectionView.swift */,
 				6E944FC2F706DB13CC77F05F /* MenuBarView.swift */,
+				B2C3D4E5F6A7B8C9D0E1F2A3 /* ProfileEditorView.swift */,
 				78ABBCB41A6E695DAB453DC2 /* QuickActionsView.swift */,
 				367AA546F8A0471783D4D408 /* VirtualDisplaySectionView.swift */,
 			);
@@ -335,6 +338,7 @@
 				DE58652C942AD9139D3D7553 /* GeneralSettingsView.swift in Sources */,
 				5CE7CF8E98216F2A7EF4C986 /* KeyboardShortcutManager.swift in Sources */,
 				F7BC87C9346F1C337AEACAC0 /* MenuBarView.swift in Sources */,
+				A1B2C3D4E5F6A7B8C9D0E1F2 /* ProfileEditorView.swift in Sources */,
 				B9FF17E7A9A97C7A8579FD8C /* NoBrainerResApp.swift in Sources */,
 				5ED2D284ECA3D5676C3ECBDA /* Profile.swift in Sources */,
 				EDCC74DD1A459AC542E3FC6E /* ProfileManager.swift in Sources */,

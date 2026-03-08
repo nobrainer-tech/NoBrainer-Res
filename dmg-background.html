@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>NoBrainer DMG Background</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 660px;
+    height: 400px;
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .dmg-background {
+    position: relative;
+    width: 660px;
+    height: 400px;
+    background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
+  }
+
+  .arrow-area {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-top: -10px;
+  }
+
+  .arrow-area svg {
+    display: block;
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.1));
+  }
+
+  .install-text {
+    position: absolute;
+    bottom: 55px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.55);
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+  }
+</style>
+</head>
+<body>
+<div class="dmg-background">
+  <div class="arrow-area">
+    <svg width="140" height="32" viewBox="0 0 140 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="0" y1="16" x2="108" y2="16"
+            stroke="rgba(0,0,0,0.25)"
+            stroke-width="1.5"
+            stroke-dasharray="6 4"
+            stroke-linecap="round"/>
+      <path d="M110 16 L130 16"
+            stroke="rgba(0,0,0,0.4)"
+            stroke-width="1.5"
+            stroke-linecap="round"/>
+      <path d="M124 9 L133 16 L124 23"
+            stroke="rgba(0,0,0,0.4)"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            fill="none"/>
+    </svg>
+  </div>
+
+  <div class="install-text">Drag to Applications to install</div>
+</div>
+</body>
+</html>
