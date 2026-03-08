@@ -46,6 +46,7 @@ final class ProfileManager {
             ))
         }
 
+        // Capture only one external config - apply() will apply it to all external displays
         if let external = displayManager.displays.first(where: { !$0.isBuiltIn }),
            let current = external.currentMode {
             configs.append(Profile.DisplayConfiguration(
@@ -67,16 +68,18 @@ final class ProfileManager {
 
         for config in profile.displayConfigurations {
             if config.isBuiltIn {
-                if let display = displayManager.displays.first(where: { $0.isBuiltIn }) {
-                    if !displayManager.switchModeByResolution(
-                        displayID: display.id,
-                        width: config.width,
-                        height: config.height,
-                        isHiDPI: config.isHiDPI,
-                        refreshRate: config.refreshRate
-                    ) {
-                        allSucceeded = false
-                    }
+                guard let display = displayManager.displays.first(where: { $0.isBuiltIn }) else {
+                    allSucceeded = false
+                    continue
+                }
+                if !displayManager.switchModeByResolution(
+                    displayID: display.id,
+                    width: config.width,
+                    height: config.height,
+                    isHiDPI: config.isHiDPI,
+                    refreshRate: config.refreshRate
+                ) {
+                    allSucceeded = false
                 }
             } else {
                 for display in displayManager.displays where !display.isBuiltIn {
@@ -120,13 +123,15 @@ final class ProfileManager {
     private func seedDefaultProfileIfNeeded() {
         guard profiles.isEmpty else { return }
 
+        // Sample profile for macOS + Viture XR glasses setup.
+        // autoApply is disabled so it does not silently change modes on other hardware.
         let defaultProfile = Profile(
             name: "macOS+Viture",
             displayConfigurations: [
                 Profile.DisplayConfiguration(isBuiltIn: true, width: 3024, height: 1964, isHiDPI: true, refreshRate: 120),
                 Profile.DisplayConfiguration(isBuiltIn: false, width: 2560, height: 1600, isHiDPI: true, refreshRate: 60)
             ],
-            autoApply: true
+            autoApply: false
         )
 
         save(profile: defaultProfile)

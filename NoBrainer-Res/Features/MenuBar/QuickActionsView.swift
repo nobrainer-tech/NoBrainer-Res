@@ -21,10 +21,7 @@ struct QuickActionsView: View {
                     ForEach(profileManager.profiles) { profile in
                         Button {
                             let success = profileManager.apply(profile: profile, using: displayManager)
-                            if success {
-                                displayManager.activeProfile = profile
-                                displayManager.hasProfileDrift = false
-                            }
+                            if success { displayManager.markProfileApplied(profile) }
                         } label: {
                             HStack {
                                 Image(systemName: "rectangle.3.group")
@@ -47,9 +44,7 @@ struct QuickActionsView: View {
                     if displayManager.hasProfileDrift, let active = displayManager.activeProfile {
                         Button {
                             let success = profileManager.apply(profile: active, using: displayManager)
-                            if success {
-                                displayManager.hasProfileDrift = false
-                            }
+                            if success { displayManager.markProfileApplied(active) }
                         } label: {
                             HStack {
                                 Image(systemName: "arrow.counterclockwise")

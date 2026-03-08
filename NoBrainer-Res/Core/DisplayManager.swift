@@ -12,6 +12,9 @@ final class DisplayManager {
     // Set by NoBrainerResApp after both managers are initialised
     var profileManager: ProfileManager?
 
+    private var hasPerformedInitialAutoApply = false
+    private var suppressDriftCheckUntil: Date?
+
     init() {
         refresh()
         registerForDisplayChanges()
@@ -29,14 +32,23 @@ final class DisplayManager {
         let activeIDs = Array(displayIDs.prefix(Int(displayCount)))
         displays = activeIDs.map { buildDisplay(for: $0) }
 
-        autoApplyIfNeeded()
-        updateDrift()
+        let applied = autoApplyIfNeeded()
+        if !applied { updateDrift() }
     }
 
-    // Called externally (e.g. on app appear) to trigger auto-apply with current display state
+    // Called once at app launch to trigger auto-apply; ignores subsequent calls (e.g. on menu re-open)
     func triggerAutoApply() {
-        autoApplyIfNeeded()
-        updateDrift()
+        guard !hasPerformedInitialAutoApply else { return }
+        hasPerformedInitialAutoApply = true
+        let applied = autoApplyIfNeeded()
+        if !applied { updateDrift() }
+    }
+
+    // Called after manually applying a profile to update state and suppress race-prone drift check
+    func markProfileApplied(_ profile: Profile) {
+        activeProfile = profile
+        hasProfileDrift = false
+        suppressDriftCheckUntil = Date().addingTimeInterval(1.0)
     }
 
     func switchMode(displayID: CGDirectDisplayID, mode: DisplayMode) -> Bool {
@@ -120,28 +132,29 @@ final class DisplayManager {
             mode.width == width &&
             mode.height == height &&
             (mode.pixelWidth > mode.width) == isHiDPI &&
-            Int(mode.refreshRate) == Int(refreshRate)
+            abs(mode.refreshRate - refreshRate) < 0.5
         }
     }
 
-    private func autoApplyIfNeeded() {
-        guard let profileManager else { return }
-        guard let profile = profileManager.profiles.first(where: { $0.autoApply }) else { return }
+    @discardableResult
+    private func autoApplyIfNeeded() -> Bool {
+        guard let profileManager else { return false }
+        guard let profile = profileManager.profiles.first(where: { $0.autoApply }) else { return false }
 
         let hasExternals = displays.contains(where: { !$0.isBuiltIn })
-        guard hasExternals else { return }
+        guard hasExternals else { return false }
 
-        // Avoid re-applying if already active and no drift
-        if activeProfile?.id == profile.id { return }
+        // Skip if already active and display is not drifted from the profile
+        if activeProfile?.id == profile.id && !hasProfileDrift { return false }
 
         let success = profileManager.apply(profile: profile, using: self)
-        if success {
-            activeProfile = profile
-            hasProfileDrift = false
-        }
+        if success { markProfileApplied(profile) }
+        return success
     }
 
     private func updateDrift() {
+        if let suppress = suppressDriftCheckUntil, Date() < suppress { return }
+
         guard let profile = activeProfile else {
             hasProfileDrift = false
             return
@@ -179,7 +192,7 @@ final class DisplayManager {
         current.width == config.width &&
         current.height == config.height &&
         current.isHiDPI == config.isHiDPI &&
-        Int(current.refreshRate) == Int(config.refreshRate)
+        abs(current.refreshRate - config.refreshRate) < 0.5
     }
 
     private func registerForDisplayChanges() {
