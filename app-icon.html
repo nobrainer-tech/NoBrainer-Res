@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1024px;
+    height: 1024px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    overflow: hidden;
+  }
+
+  .icon {
+    width: 824px;
+    height: 824px;
+    border-radius: 185px;
+    background: linear-gradient(145deg, #ffffff 0%, #f0f4f8 50%, #e2e8f0 100%);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+      0 0 0 1px rgba(0,0,0,0.06),
+      0 20px 60px rgba(0,0,0,0.15),
+      inset 0 1px 0 rgba(255,255,255,0.8);
+    overflow: hidden;
+  }
+
+  .display {
+    position: relative;
+    z-index: 1;
+    width: 380px;
+    height: 280px;
+    border: 3px solid #06B6D4;
+    border-radius: 24px;
+    background: #05060F;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(6, 182, 212, 0.2);
+  }
+
+  .display-top {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    padding: 24px;
+  }
+
+  .res-line {
+    width: 260px;
+    height: 26px;
+    border-radius: 7px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .res-line.active {
+    background: rgba(6, 182, 212, 0.2);
+    border: 2px solid #06B6D4;
+    box-shadow: 0 0 16px rgba(6, 182, 212, 0.25);
+  }
+
+  .display-stand {
+    width: 60px;
+    height: 36px;
+    background: linear-gradient(180deg, #94a3b8, #cbd5e1);
+    position: absolute;
+    bottom: 195px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 0;
+    border-radius: 0 0 6px 6px;
+  }
+
+  .display-base {
+    width: 140px;
+    height: 10px;
+    background: linear-gradient(180deg, #94a3b8, #b0bec5);
+    border-radius: 5px;
+    position: absolute;
+    bottom: 183px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 0;
+  }
+
+  .arrows {
+    position: absolute;
+    z-index: 2;
+    right: 145px;
+    top: 50%;
+    transform: translateY(-55%);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .arrow-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: #06B6D4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(6, 182, 212, 0.35);
+  }
+
+  .arrow-btn svg {
+    fill: none;
+    stroke: #ffffff;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+</style>
+</head>
+<body>
+  <div class="icon">
+    <div class="display-stand"></div>
+    <div class="display-base"></div>
+
+    <div class="display">
+      <div class="display-top">
+        <div class="res-line"></div>
+        <div class="res-line active"></div>
+        <div class="res-line"></div>
+        <div class="res-line"></div>
+      </div>
+    </div>
+
+    <div class="arrows">
+      <div class="arrow-btn">
+        <svg width="22" height="22" viewBox="0 0 24 24">
+          <polyline points="18 15 12 9 6 15"/>
+        </svg>
+      </div>
+      <div class="arrow-btn">
+        <svg width="22" height="22" viewBox="0 0 24 24">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -4,11 +4,11 @@ struct Profile: Identifiable, Codable, Hashable {
     let id: UUID
     var name: String
     var displayConfigurations: [DisplayConfiguration]
+    var autoApply: Bool
     let createdAt: Date
 
     struct DisplayConfiguration: Codable, Hashable {
-        let displayID: UInt32
-        let modeID: Int32
+        var isBuiltIn: Bool
         let width: Int
         let height: Int
         let isHiDPI: Bool
@@ -19,10 +19,11 @@ struct Profile: Identifiable, Codable, Hashable {
         }
     }
 
-    init(id: UUID = UUID(), name: String, displayConfigurations: [DisplayConfiguration] = [], createdAt: Date = .now) {
+    init(id: UUID = UUID(), name: String, displayConfigurations: [DisplayConfiguration] = [], autoApply: Bool = false, createdAt: Date = .now) {
         self.id = id
         self.name = name
         self.displayConfigurations = displayConfigurations
+        self.autoApply = autoApply
         self.createdAt = createdAt
     }
 }

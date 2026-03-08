@@ -2,15 +2,15 @@ import SwiftUI
 
 struct QuickActionsView: View {
     @Environment(\.openSettings) private var openSettings
-    let profiles: [Profile]
-    let onApplyProfile: (Profile) -> Void
+    @Environment(DisplayManager.self) private var displayManager
+    @Environment(ProfileManager.self) private var profileManager
 
     var body: some View {
         VStack(spacing: 0) {
             Divider()
                 .padding(.vertical, 4)
 
-            if !profiles.isEmpty {
+            if !profileManager.profiles.isEmpty {
                 VStack(alignment: .leading, spacing: 2) {
                     Text("Profiles")
                         .font(.caption)
@@ -18,14 +18,23 @@ struct QuickActionsView: View {
                         .padding(.horizontal, 8)
                         .padding(.bottom, 2)
 
-                    ForEach(profiles) { profile in
+                    ForEach(profileManager.profiles) { profile in
                         Button {
-                            onApplyProfile(profile)
+                            let success = profileManager.apply(profile: profile, using: displayManager)
+                            if success {
+                                displayManager.activeProfile = profile
+                                displayManager.hasProfileDrift = false
+                            }
                         } label: {
                             HStack {
                                 Image(systemName: "rectangle.3.group")
                                     .font(.system(size: 11))
                                 Text(profile.name)
+                                if profile.autoApply {
+                                    Image(systemName: "bolt.fill")
+                                        .font(.system(size: 9))
+                                        .foregroundStyle(.yellow)
+                                }
                                 Spacer()
                             }
                             .padding(.horizontal, 8)
@@ -33,6 +42,27 @@ struct QuickActionsView: View {
                             .contentShape(Rectangle())
                         }
                         .buttonStyle(.plain)
+                    }
+
+                    if displayManager.hasProfileDrift, let active = displayManager.activeProfile {
+                        Button {
+                            let success = profileManager.apply(profile: active, using: displayManager)
+                            if success {
+                                displayManager.hasProfileDrift = false
+                            }
+                        } label: {
+                            HStack {
+                                Image(systemName: "arrow.counterclockwise")
+                                    .font(.system(size: 11))
+                                Text("Restore \"\(active.name)\"")
+                                Spacer()
+                            }
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 4)
+                            .contentShape(Rectangle())
+                        }
+                        .buttonStyle(.plain)
+                        .foregroundStyle(.orange)
                     }
 
                     Divider()

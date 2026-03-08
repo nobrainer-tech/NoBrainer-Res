@@ -4,8 +4,7 @@ struct MenuBarView: View {
     @Environment(DisplayManager.self) private var displayManager
     @Environment(ProfileManager.self) private var profileManager
     @Environment(VirtualDisplayManager.self) private var virtualDisplayManager
-    @State private var showNewProfileSheet = false
-    @State private var newProfileName = ""
+    @State private var showProfileEditor = false
 
     var body: some View {
         VStack(spacing: 8) {
@@ -31,17 +30,16 @@ struct MenuBarView: View {
                 saveProfileButton
             }
 
-            QuickActionsView(
-                profiles: profileManager.profiles,
-                onApplyProfile: { profile in
-                    _ = profileManager.apply(profile: profile, using: displayManager)
-                }
-            )
+            QuickActionsView()
         }
         .padding(12)
         .frame(width: 340)
-        .sheet(isPresented: $showNewProfileSheet) {
-            newProfileSheet
+        .sheet(isPresented: $showProfileEditor) {
+            ProfileEditorView {
+                showProfileEditor = false
+            }
+            .environment(displayManager)
+            .environment(profileManager)
         }
     }
 
@@ -66,7 +64,7 @@ struct MenuBarView: View {
 
     private var saveProfileButton: some View {
         Button {
-            showNewProfileSheet = true
+            showProfileEditor = true
         } label: {
             HStack {
                 Image(systemName: "plus.circle")
@@ -77,38 +75,5 @@ struct MenuBarView: View {
         }
         .buttonStyle(.plain)
         .foregroundStyle(.secondary)
-    }
-
-    private var newProfileSheet: some View {
-        VStack(spacing: 16) {
-            Text("New Profile")
-                .font(.headline)
-
-            TextField("Profile Name", text: $newProfileName)
-                .textFieldStyle(.roundedBorder)
-
-            HStack {
-                Button("Cancel") {
-                    newProfileName = ""
-                    showNewProfileSheet = false
-                }
-                .keyboardShortcut(.cancelAction)
-
-                Spacer()
-
-                Button("Save") {
-                    _ = profileManager.createFromCurrentState(
-                        name: newProfileName,
-                        displayManager: displayManager
-                    )
-                    newProfileName = ""
-                    showNewProfileSheet = false
-                }
-                .keyboardShortcut(.defaultAction)
-                .disabled(newProfileName.trimmingCharacters(in: .whitespaces).isEmpty)
-            }
-        }
-        .padding(20)
-        .frame(width: 280)
     }
 }
