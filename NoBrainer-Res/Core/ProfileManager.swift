@@ -63,40 +63,10 @@ final class ProfileManager {
         return profile
     }
 
-    func apply(profile: Profile, using displayManager: DisplayManager) -> Bool {
-        var allSucceeded = true
-
-        for config in profile.displayConfigurations {
-            if config.isBuiltIn {
-                guard let display = displayManager.displays.first(where: { $0.isBuiltIn }) else {
-                    allSucceeded = false
-                    continue
-                }
-                if !displayManager.switchModeByResolution(
-                    displayID: display.id,
-                    width: config.width,
-                    height: config.height,
-                    isHiDPI: config.isHiDPI,
-                    refreshRate: config.refreshRate
-                ) {
-                    allSucceeded = false
-                }
-            } else {
-                for display in displayManager.displays where !display.isBuiltIn {
-                    if !displayManager.switchModeByResolution(
-                        displayID: display.id,
-                        width: config.width,
-                        height: config.height,
-                        isHiDPI: config.isHiDPI,
-                        refreshRate: config.refreshRate
-                    ) {
-                        allSucceeded = false
-                    }
-                }
-            }
-        }
-
-        return allSucceeded
+    /// Applies all of the profile's display configurations together, or none of them.
+    /// Manual applications ask the user to keep the new modes and revert otherwise.
+    func apply(profile: Profile, using displayManager: DisplayManager, confirm: Bool = true) -> Bool {
+        displayManager.apply(profile: profile, confirm: confirm)
     }
 
     // MARK: - Persistence

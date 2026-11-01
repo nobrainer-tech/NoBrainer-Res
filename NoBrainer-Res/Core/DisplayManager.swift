@@ -55,7 +55,7 @@ final class DisplayManager {
         guard let cgMode = findCGDisplayMode(displayID: displayID, modeID: mode.id) else {
             return false
         }
-        let success = applyMode(displayID: displayID, cgMode: cgMode)
+        let success = applyModesWithConfirmation([ModeChange(displayID: displayID, mode: cgMode)])
         if success { hasProfileDrift = activeProfile != nil }
         return success
     }
@@ -67,13 +67,72 @@ final class DisplayManager {
         return applyMode(displayID: displayID, cgMode: cgMode)
     }
 
+    /// Applies every configuration of the profile in one transaction, or nothing at all.
+    /// Fails without touching any display when a target display or mode is missing.
+    func apply(profile: Profile, confirm: Bool) -> Bool {
+        guard let changes = modeChanges(for: profile) else { return false }
+        return confirm ? applyModesWithConfirmation(changes) : applyModes(changes, option: .permanently)
+    }
+
     // MARK: - Private
 
+    private struct ModeChange {
+        let displayID: CGDirectDisplayID
+        let mode: CGDisplayMode
+    }
+
     private func applyMode(displayID: CGDirectDisplayID, cgMode: CGDisplayMode) -> Bool {
+        applyModes([ModeChange(displayID: displayID, mode: cgMode)], option: .permanently)
+    }
+
+    private func applyModes(_ changes: [ModeChange], option: CGConfigureOption) -> Bool {
         var config: CGDisplayConfigRef?
-        guard CGBeginDisplayConfiguration(&config) == .success else { return false }
-        CGConfigureDisplayWithDisplayMode(config, displayID, cgMode, nil)
-        return CGCompleteDisplayConfiguration(config, .permanently) == .success
+        guard CGBeginDisplayConfiguration(&config) == .success, let config else { return false }
+        for change in changes {
+            guard CGConfigureDisplayWithDisplayMode(config, change.displayID, change.mode, nil) == .success else {
+                _ = CGCancelDisplayConfiguration(config)
+                return false
+            }
+        }
+        return CGCompleteDisplayConfiguration(config, option) == .success
+    }
+
+    /// Tries the new modes for this login session only and keeps them after the user confirms.
+    /// Without confirmation the previous modes come back, so an unreadable mode cannot lock the user out.
+    private func applyModesWithConfirmation(_ changes: [ModeChange]) -> Bool {
+        let previous = changes.compactMap { change in
+            CGDisplayCopyDisplayMode(change.displayID).map { ModeChange(displayID: change.displayID, mode: $0) }
+        }
+        guard previous.count == changes.count,
+              applyModes(changes, option: .forSession) else { return false }
+
+        if ModeChangeConfirmation.ask(), applyModes(changes, option: .permanently) {
+            return true
+        }
+        // The trial was session-only, so the saved configuration still holds the previous modes.
+        if !applyModes(previous, option: .forSession) {
+            CGRestorePermanentDisplayConfiguration()
+        }
+        return false
+    }
+
+    private func modeChanges(for profile: Profile) -> [ModeChange]? {
+        var changes: [ModeChange] = []
+        for config in profile.displayConfigurations {
+            let targets = displays.filter { $0.isBuiltIn == config.isBuiltIn }
+            guard !targets.isEmpty else { return nil }
+            for display in targets {
+                guard let cgMode = findCGDisplayModeByResolution(
+                    displayID: display.id,
+                    width: config.width,
+                    height: config.height,
+                    isHiDPI: config.isHiDPI,
+                    refreshRate: config.refreshRate
+                ) else { return nil }
+                changes.append(ModeChange(displayID: display.id, mode: cgMode))
+            }
+        }
+        return changes.isEmpty ? nil : changes
     }
 
     private func buildDisplay(for displayID: CGDirectDisplayID) -> Display {
@@ -147,7 +206,7 @@ final class DisplayManager {
         // Skip if already active and display is not drifted from the profile
         if activeProfile?.id == profile.id && !hasProfileDrift { return false }
 
-        let success = profileManager.apply(profile: profile, using: self)
+        let success = apply(profile: profile, confirm: false)
         if success { markProfileApplied(profile) }
         return success
     }
