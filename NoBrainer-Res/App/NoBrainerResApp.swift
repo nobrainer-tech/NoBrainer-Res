@@ -5,6 +5,7 @@ struct NoBrainerResApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     @State private var displayManager: DisplayManager
     @State private var profileManager: ProfileManager
+    @State private var shortcutManager: KeyboardShortcutManager
     @State private var virtualDisplayManager = VirtualDisplayManager()
 
     init() {
@@ -13,6 +14,7 @@ struct NoBrainerResApp: App {
         dm.profileManager = pm
         _displayManager = State(initialValue: dm)
         _profileManager = State(initialValue: pm)
+        _shortcutManager = State(initialValue: KeyboardShortcutManager(displayManager: dm, profileManager: pm))
     }
 
     var body: some Scene {

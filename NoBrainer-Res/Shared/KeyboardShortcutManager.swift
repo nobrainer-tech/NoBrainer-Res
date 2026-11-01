@@ -70,6 +70,9 @@ final class KeyboardShortcutManager {
 
     private func applyProfile(at index: Int) {
         guard index < profileManager.profiles.count else { return }
-        _ = profileManager.apply(profile: profileManager.profiles[index], using: displayManager)
+        let profile = profileManager.profiles[index]
+        if profileManager.apply(profile: profile, using: displayManager) {
+            displayManager.markProfileApplied(profile)
+        }
     }
 }
